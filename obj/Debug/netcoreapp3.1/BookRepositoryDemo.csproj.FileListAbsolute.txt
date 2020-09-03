@@ -54,8 +54,13 @@ G:\visual studio\CTS Practice Project\BookRepositoryDemo\bin\Debug\netcoreapp3.1
 G:\visual studio\CTS Practice Project\BookRepositoryDemo\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 G:\visual studio\CTS Practice Project\BookRepositoryDemo\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 G:\visual studio\CTS Practice Project\BookRepositoryDemo\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-G:\visual studio\CTS Practice Project\BookRepositoryDemo\obj\Debug\netcoreapp3.1\BookRepositoryDemo.csproj.CoreCompileInputs.cache
-G:\visual studio\CTS Practice Project\BookRepositoryDemo\obj\Debug\netcoreapp3.1\BookRepositoryDemo.MvcApplicationPartsAssemblyInfo.cache
 G:\visual studio\CTS Practice Project\BookRepositoryDemo\obj\Debug\netcoreapp3.1\BookRepositoryDemo.dll
 G:\visual studio\CTS Practice Project\BookRepositoryDemo\obj\Debug\netcoreapp3.1\BookRepositoryDemo.pdb
 G:\visual studio\CTS Practice Project\BookRepositoryDemo\obj\Debug\netcoreapp3.1\BookRepositoryDemo.genruntimeconfig.cache
+G:\visual studio\CTS Practice Project\BookRepositoryDemo\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+G:\visual studio\CTS Practice Project\BookRepositoryDemo\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+G:\visual studio\CTS Practice Project\BookRepositoryDemo\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+G:\visual studio\CTS Practice Project\BookRepositoryDemo\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+G:\visual studio\CTS Practice Project\BookRepositoryDemo\obj\Debug\netcoreapp3.1\BookRepositoryDemo.csproj.CoreCompileInputs.cache
+G:\visual studio\CTS Practice Project\BookRepositoryDemo\obj\Debug\netcoreapp3.1\BookRepositoryDemo.MvcApplicationPartsAssemblyInfo.cs
+G:\visual studio\CTS Practice Project\BookRepositoryDemo\obj\Debug\netcoreapp3.1\BookRepositoryDemo.MvcApplicationPartsAssemblyInfo.cache

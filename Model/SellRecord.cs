@@ -9,10 +9,11 @@ namespace BookRepositoryDemo.Model
     public class SellRecord
     {
         [Key]
-        public int BookId { get; set; }
+        public int Id { get; set; }
 
+        [Required]
+        public string BookName { get; set;}
         public double Qty { get; set; }
-
         public DateTime date { get; set; }
 
     }

@@ -12,7 +12,7 @@ namespace BookRepositoryDemo.Model
         {
 
         }
-        public DbSet<Book> Book { get; set; }
-        public DbSet<SellRecord> SellRecord { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<SellRecord> SellRecords { get; set; }
     }
 }
