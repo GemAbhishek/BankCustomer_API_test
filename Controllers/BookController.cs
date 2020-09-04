@@ -18,7 +18,7 @@ namespace BookRepositoryDemo.Controllers
 
         public BookController(ApplicationDbContext _db)
         {
-            _log4net = log4net.LogManager.GetLogger(typeof(SellRecordController));
+            _log4net = log4net.LogManager.GetLogger(typeof(BookController));
 
             db = _db;
         }

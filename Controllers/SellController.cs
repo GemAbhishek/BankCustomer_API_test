@@ -12,16 +12,22 @@ namespace BookRepositoryDemo.Controllers
     [ApiController]
     public class SellController : ControllerBase
     {
+        readonly log4net.ILog _log4net;
+
         private readonly ApplicationDbContext db;
 
         public SellController(ApplicationDbContext _db)
         {
+            _log4net = log4net.LogManager.GetLogger(typeof(SellController));
+
             db = _db;
         }
 
         [HttpPut("{id}/{qty}")]
         public IActionResult Put(int id, int qty)
         {
+            _log4net.Info("PUT Request --- Sell update for id --"+id);
+
             SellRecord obj = db.SellRecords.Find(id);
             if (obj != null)
             {
