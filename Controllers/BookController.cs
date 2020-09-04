@@ -13,24 +13,31 @@ namespace BookRepositoryDemo.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
+        readonly log4net.ILog _log4net;
         private readonly ApplicationDbContext db;
 
         public BookController(ApplicationDbContext _db)
         {
+            _log4net = log4net.LogManager.GetLogger(typeof(SellRecordController));
+
             db = _db;
         }
 
         // GET: api/<BookController>
         [HttpGet]
-        public IEnumerable<Book> Get()
+        public ActionResult<List<Book>> Get()
         {
-            return db.Books.ToList();
+            _log4net.Info(" Http GET request All Record requsted");
+
+            return Ok(db.Books.ToList());
         }
 
         // GET api/<BookController>/5
         [HttpGet("{id}")]
         public Book Get(int id)
         {
+            _log4net.Info(" Http GET request by Id requested id = " + id);
+
             return db.Books.Find(id);
         }
 
@@ -38,6 +45,8 @@ namespace BookRepositoryDemo.Controllers
         [HttpPost]
         public string Post([FromBody] Book obj)
         {
+            _log4net.Info(" Http Post request");
+
             db.Books.Add(obj);
             db.SaveChanges();
             return "Record Added";
@@ -48,6 +57,8 @@ namespace BookRepositoryDemo.Controllers
         [HttpPut("{id}")]
         public string Put(int id, [FromBody] Book obj)
         {
+            _log4net.Info("PUT ---Update Request");
+
             Book book = db.Books.Find(id);
             book.Name = obj.Name;
             book.Author = obj.Author;
@@ -65,6 +76,8 @@ namespace BookRepositoryDemo.Controllers
             Book book = db.Books.Find(id);
             if (book != null)
             {
+                _log4net.Info(" Delete requsted");
+
                 db.Books.Remove(book);
                 db.SaveChanges();
                 return "Removed";
