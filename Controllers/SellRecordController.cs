@@ -46,15 +46,21 @@ namespace BookRepositoryDemo.Controllers
 
         // PUT api/<BookController>/5
         [HttpPut("{id}")]
-        public string Put(int id, [FromBody] SellRecord obj)
+        public IActionResult Put(int id, [FromBody] SellRecord obj)
         {
-            SellRecord sellRec = db.SellRecords.Find(id);
-            sellRec.BookName = obj.BookName;
-            sellRec.date = obj.date;
-            sellRec.Qty = obj.Qty;
+            try
+            {
+                obj.Id = id;
+                db.SellRecords.Update(obj);
+                db.SaveChanges();
+            }
+            catch(Exception e)
+            {
+                return BadRequest("Record not found \n----------------\n" + e);
+            }
             
-            db.SaveChanges();
-            return "Updated Sell-Record";
+            return Ok("Updated Sell-Record");
+
         }
 
         // DELETE api/<BookController>/5
