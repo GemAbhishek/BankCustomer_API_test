@@ -4,14 +4,16 @@ using BookRepositoryDemo.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookRepositoryDemo.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200904092224_added_Sell_Model")]
+    partial class added_Sell_Model
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,6 +46,24 @@ namespace BookRepositoryDemo.Migrations
                     b.ToTable("Books");
                 });
 
+            modelBuilder.Entity("BookRepositoryDemo.Model.Sell", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("QtySell")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SellRecordId")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Sells");
+                });
+
             modelBuilder.Entity("BookRepositoryDemo.Model.SellRecord", b =>
                 {
                     b.Property<int>("Id")
@@ -55,7 +75,7 @@ namespace BookRepositoryDemo.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("SellQty")
+                    b.Property<double>("Qty")
                         .HasColumnType("float");
 
                     b.Property<DateTime>("date")

@@ -13,7 +13,7 @@ namespace BookRepositoryDemo.Model
 
         [Required]
         public string BookName { get; set;}
-        public double Qty { get; set; }
+        public double SellQty { get; set; }
         public DateTime date { get; set; }
 
     }
