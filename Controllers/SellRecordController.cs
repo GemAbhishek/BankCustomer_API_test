@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookRepositoryDemo.Model;
+using BookRepositoryDemo.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,24 +15,24 @@ namespace BookRepositoryDemo.Controllers
     public class SellRecordController : ControllerBase
     {
         readonly log4net.ILog _log4net;
-        private readonly ApplicationDbContext db;
+        ISellRecordRepo isellRecord;
 
-        public SellRecordController(ApplicationDbContext _db)
+        public SellRecordController(ISellRecordRepo _db)
         {
             _log4net = log4net.LogManager.GetLogger(typeof(SellRecordController));
 
-            db = _db;
+            isellRecord = _db;
         }
 
         // GET: api/<BookController>
         [HttpGet]
-        public ActionResult<List<SellRecord>> Get()
+        public IActionResult Get()
         {
             _log4net.Info(" Http GET request All Record requsted");
 
             List<SellRecord> sellRecord = new List<SellRecord>();
 
-            sellRecord= db.SellRecords.ToList();
+            sellRecord= isellRecord.GetDetails();
 
             return Ok(sellRecord);
 
@@ -39,21 +40,24 @@ namespace BookRepositoryDemo.Controllers
 
         // GET api/<BookController>/5
         [HttpGet("{id}")]
-        public SellRecord Get(int id)
+        public IActionResult Get(int id)
         {
             _log4net.Info(" Http GET request by Id requested id = " + id);
-            return db.SellRecords.Find(id);
+
+            return Ok(isellRecord.GetDetail(id));
         }
 
         // POST api/<BookController>
         [HttpPost]
-        public string Post([FromBody] SellRecord obj)
+        public IActionResult Post([FromBody] SellRecord obj)
         {
             _log4net.Info(" Http Post request");
-            db.SellRecords.Add(obj);
-            db.SaveChanges();
-            return "Sell Record Added";
-
+            int isDone = isellRecord.AddDetail(obj);
+            if(isDone == 1)
+            {
+                return Ok("Sell Record Added");
+            }
+            return NotFound("Error");
         }
 
         // PUT api/<BookController>/5
@@ -61,34 +65,27 @@ namespace BookRepositoryDemo.Controllers
         public IActionResult Put(int id, [FromBody] SellRecord obj)
         {
             _log4net.Info("PUT ---Update Request");
-            try
+
+            int isDone = isellRecord.UpdateDetail(id, obj);
+            if(isDone == 1)
             {
-                obj.Id = id;
-                db.SellRecords.Update(obj);
-                db.SaveChanges();
+                return Ok("Updated");
             }
-            catch(Exception e)
-            {
-                return BadRequest("Record not found \n----------------\n" + e);
-            }
-            
-            return Ok("Updated Sell-Record");
+            return NotFound("Record not Found");
 
         }
 
         // DELETE api/<BookController>/5
         [HttpDelete("{id}")]
-        public string Delete(int id)
+        public IActionResult Delete(int id)
         {
             _log4net.Info(" Delete requsted");
-            SellRecord selRec = db.SellRecords.Find(id);
-            if (selRec != null)
+            int isDone = isellRecord.DeleteDetail(id);
+            if (isDone == 1)
             {
-                db.SellRecords.Remove(selRec);
-                db.SaveChanges();
-                return "Removed";
+                return Ok("Removed");
             }
-            return "Not Found";
+            return NotFound("Error---Not Found");
         }
     }
 }

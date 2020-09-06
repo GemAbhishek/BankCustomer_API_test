@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookRepositoryDemo.Model;
+using BookRepositoryDemo.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,13 +15,13 @@ namespace BookRepositoryDemo.Controllers
     {
         readonly log4net.ILog _log4net;
 
-        private readonly ApplicationDbContext db;
+        ISellRepo iSell;
 
-        public SellController(ApplicationDbContext _db)
+        public SellController(ISellRepo _db)
         {
             _log4net = log4net.LogManager.GetLogger(typeof(SellController));
 
-            db = _db;
+            iSell = _db;
         }
 
         [HttpPut("{id}/{qty}")]
@@ -28,16 +29,12 @@ namespace BookRepositoryDemo.Controllers
         {
             _log4net.Info("PUT Request --- Sell update for id --"+id);
 
-            SellRecord obj = db.SellRecords.Find(id);
-            if (obj != null)
+            int isDone = iSell.Update(id, qty);
+            if (isDone == 1)
             {
-                obj.SellQty += qty;
-                obj.date = DateTime.Now;
-                db.SaveChanges();
-
-                return Ok("Updated Sell-Record");
+                return Ok("Updated");
             }
-            return NotFound("Record Id Invalid");
+            return NotFound("Error --Record Id Invalid");
         }
     }
 }

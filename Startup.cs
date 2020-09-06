@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookRepositoryDemo.Model;
+using BookRepositoryDemo.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,9 @@ namespace BookRepositoryDemo
             services.AddControllers();
 
             services.AddSwaggerGen();
+            services.AddScoped<IBookRepo,BookRepo>();
+            services.AddScoped<ISellRecordRepo,SellRecordRepo>();
+            services.AddScoped<ISellRepo,SellRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

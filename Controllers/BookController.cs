@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookRepositoryDemo.Model;
+using BookRepositoryDemo.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,75 +15,73 @@ namespace BookRepositoryDemo.Controllers
     public class BookController : ControllerBase
     {
         readonly log4net.ILog _log4net;
-        private readonly ApplicationDbContext db;
 
-        public BookController(ApplicationDbContext _db)
+        IBookRepo ibook;
+        public BookController(IBookRepo _db)
         {
             _log4net = log4net.LogManager.GetLogger(typeof(BookController));
-
-            db = _db;
+            ibook = _db;
         }
 
         // GET: api/<BookController>
         [HttpGet]
-        public ActionResult<List<Book>> Get()
+        public IActionResult Get()
         {
             _log4net.Info(" Http GET request All Record requsted");
-
-            return Ok(db.Books.ToList());
+            var bookRecord = ibook.GetDetails();
+            return Ok(bookRecord);
         }
 
         // GET api/<BookController>/5
         [HttpGet("{id}")]
-        public Book Get(int id)
+        public IActionResult Get(int id)
         {
             _log4net.Info(" Http GET request by Id requested id = " + id);
 
-            return db.Books.Find(id);
+            return Ok(ibook.GetDetail(id));
         }
 
         // POST api/<BookController>
         [HttpPost]
-        public string Post([FromBody] Book obj)
+        public IActionResult Post([FromBody] Book obj)
         {
             _log4net.Info(" Http Post request");
 
-            db.Books.Add(obj);
-            db.SaveChanges();
-            return "Record Added";
+            int isDone = ibook.AddDetail(obj);
+            if (isDone == 1)
+            {
+                return Ok("Record Added");
+            }
+            return NotFound("Error");
 
         }
 
         // PUT api/<BookController>/5
         [HttpPut("{id}")]
-        public string Put(int id, [FromBody] Book obj)
+        public IActionResult Put(int id, [FromBody] Book obj)
         {
             _log4net.Info("PUT ---Update Request");
 
-            Book book = db.Books.Find(id);
-            book.Name = obj.Name;
-            book.Author = obj.Author;
-            book.Price = obj.Price;
-            book.IsAvailable = obj.IsAvailable;
-
-            db.SaveChanges();
-            return "Updated";
+            var isDone = ibook.UpdateDetail(id,obj);
+            if (isDone == 1)
+            {
+                return Ok("Updated");
+            }
+            return NotFound("Record not Found");
         }
 
         // DELETE api/<BookController>/5
         [HttpDelete("{id}")]
-        public string Delete(int id)
+        public IActionResult Delete(int id)
         {
-            Book book = db.Books.Find(id);
-            if (book != null)
-            {
-                _log4net.Info(" Delete requsted");
+            _log4net.Info(" Delete requsted");
 
-                db.Books.Remove(book);
-                db.SaveChanges();
-                return "Removed";
+            int isDone = ibook.DeleteDetail(id);
+            if (isDone == 1)
+            {
+                return Ok("Removed");
             }
-            return "Not Found";
+            return NotFound("Error -- Not Found");
         }
     }
 }

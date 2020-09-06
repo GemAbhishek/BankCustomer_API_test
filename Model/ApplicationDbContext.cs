@@ -8,11 +8,15 @@ namespace BookRepositoryDemo.Model
 {
     public class ApplicationDbContext : DbContext
     {
+        public ApplicationDbContext()
+        {
+
+        }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
         }
-        public DbSet<Book> Books { get; set; }
-        public DbSet<SellRecord> SellRecords { get; set; }
+        public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<SellRecord> SellRecords { get; set; }
     }
 }
