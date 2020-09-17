@@ -75,15 +75,7 @@ namespace BookRepositoryDemo.Repository
                 {
                     return 0;
                 }
-                //SellRecord book = db.SellRecords.Where(x => x.Id == id).FirstOrDefault();
-                //if (book != null)
-                //{
-                //    data.Id = id;
-                //    db.SellRecords.Update(data);
-                //    db.SaveChanges();
-                //    return 1;
-                //}
-                //return 0;
+                
             }
             return 0;
         }
