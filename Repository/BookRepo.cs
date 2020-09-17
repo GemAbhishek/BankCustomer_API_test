@@ -15,6 +15,7 @@ namespace BookRepositoryDemo.Repository
         }
         public int AddDetail(Book data)
         {
+            //return 1 if done
             if (db != null)
             {
                 db.Books.Add(data);
